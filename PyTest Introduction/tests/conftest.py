@@ -47,6 +47,6 @@ def pytest_addoption(parser):
     parser.addoption(
         "--csv-file",
         action="store",
-        default="./../../PyTest Introduction/src/data/data.csv",
+        default="./../src/data/data.csv",
         help="Path to the CSV file to be loaded for tests"
     )
