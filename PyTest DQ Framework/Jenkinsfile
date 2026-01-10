@@ -45,6 +45,8 @@ pipeline {
         stage('Run Pytest') {
             steps {
                 sh '''
+                    . venv/bin/activate
+                    export PYTHONPATH=$WORKSPACE
                     pytest tests -m "parquet_data" \
                         --db_host="postgres" \
                         --db_port="5432" \
