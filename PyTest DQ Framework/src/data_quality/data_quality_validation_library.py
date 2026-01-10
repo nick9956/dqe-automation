@@ -31,5 +31,9 @@ class DataQualityLibrary:
 
     @staticmethod
     def check_not_null_values(df, column_names=None):
-        col for df.column_names:
-            col.not_null
+        if column_names is None:
+            column_names = df.columns.tolist()
+        result = {}
+        for col in column_names:
+            result[col] = df[col].notnull().all()
+        return result
