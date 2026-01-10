@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     // Clone the Git repository
-                    git branch: 'PyTest_DQ_Framework', url: 'https://github.com/nick9956/dqe-automation'
+                    git branch: 'feature/PyTest_DQ_Framework', url: 'https://github.com/nick9956/dqe-automation'
                 }
             }
         }
