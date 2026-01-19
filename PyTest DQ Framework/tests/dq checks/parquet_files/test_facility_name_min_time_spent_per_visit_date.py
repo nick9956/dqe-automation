@@ -4,6 +4,8 @@ Requirement(s): TICKET-1234
 Author(s): Name Surname
 """
 import pytest
+from src.types import facility_name_min_time_spent_per_visit_date_type
+from src.helpers import cast_columns
 
 @pytest.fixture(scope='module')
 def target_data(db_connection):
@@ -20,7 +22,7 @@ def target_data(db_connection):
       f.facility_name,
       visit_date;
     """
-    target_data = db_connection.get_data_sql(target_query)
+    target_data = db_connection.get_data_sql(target_query, dtype=facility_name_min_time_spent_per_visit_date_type)
     return target_data
 
 @pytest.fixture(scope='module')
@@ -29,6 +31,7 @@ def source_data(parquet_reader):
     print(f"Trying to load parquet files from: {source_path}")
     parquet_reader.process(source_path, include_subfolders=True)
     df = parquet_reader.get_dataframe()
+    df = cast_columns(df, facility_name_min_time_spent_per_visit_date_type)
     return df
 
 @pytest.mark.parquet_data

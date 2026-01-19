@@ -1,0 +1,7 @@
+# Ignore IDE and Python artifacts
+__pycache__/
+*.pyc
+.idea
+
+# You might also want to ignore virtual environments
+venv/
