@@ -17,8 +17,8 @@ def target_data(db_connection):
 @pytest.fixture(scope='module')
 def source_data(parquet_reader):
     source_path = '/parquet_data/facility_name_min_time_spent_per_visit_date'
-    source_data = parquet_reader.process(source_path, include_subfolders=True)
-    return source_data
+    parquet_reader.process(source_path, include_subfolders=True)
+    return parquet_reader.get_dataframe()
 
 @pytest.mark.parquet_data
 @pytest.mark.smoke
