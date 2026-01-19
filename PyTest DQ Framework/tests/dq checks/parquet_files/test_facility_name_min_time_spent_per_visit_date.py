@@ -22,7 +22,8 @@ def target_data(db_connection):
       f.facility_name,
       visit_date;
     """
-    target_data = db_connection.get_data_sql(target_query, dtype=facility_name_min_time_spent_per_visit_date_type)
+    target_data = db_connection.get_data_sql(target_query)
+    target_data = cast_columns(target_data, facility_name_min_time_spent_per_visit_date_type)
     return target_data
 
 @pytest.fixture(scope='module')
