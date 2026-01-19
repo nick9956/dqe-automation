@@ -2,22 +2,21 @@ import pandas as pd
 
 
 class ParquetReader:
-    def __init__(self, file_path):
+    def __init__(self):
         """
         Initialize the ParquetReader with the path to the Parquet file.
         """
-        self.file_path = file_path
         self.dataframe = None
 
-    def read(self):
+    def process(self, file_path):
         """
         Reads the Parquet file and loads it into a pandas DataFrame.
         """
         try:
-            self.dataframe = pd.read_parquet(self.file_path)
-            print(f"Successfully loaded {self.file_path}")
+            self.dataframe = pd.read_parquet(file_path)
+            print(f"Successfully loaded {file_path}")
         except Exception as e:
-            print(f"Error reading Parquet file: {e}")
+            print(f"Error processing Parquet file: {e}")
 
     def get_dataframe(self):
         """
@@ -26,5 +25,5 @@ class ParquetReader:
         if self.dataframe is not None:
             return self.dataframe
         else:
-            print("No DataFrame loaded. Call read() first.")
+            print("No DataFrame loaded. Call process() first.")
             return None
