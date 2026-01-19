@@ -5,13 +5,13 @@ from typing import Optional, Type, Any, Dict
 
 class PostgresConnectorContextManager:
 
-    def __init__(self, db_host: str, db_name: str, db_user: str, db_pass: str, db_port: int = 5432):
+    def __init__(self, db_host: str, db_name: str, db_user: str, db_password: str, db_port: int = 5432):
         """Initializes the connector with database credentials."""
         self.db_host = db_host
         self.db_port = db_port
         self.db_name = db_name
         self.db_user = db_user
-        self.db_pass = db_pass
+        self.db_password = db_password
 
         # Initialize connection and cursor to None. They will be set in __enter__.
         self.connection: Optional[psycopg2.extensions.connection] = None
@@ -25,7 +25,7 @@ class PostgresConnectorContextManager:
                 port=self.db_port,
                 dbname=self.db_name,
                 user=self.db_user,
-                password=self.db_pass
+                password=self.db_password
             )
             self.cursor = self.connection.cursor()
             return self
