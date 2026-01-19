@@ -11,14 +11,13 @@ class DataQualityLibrary:
     """
 
     @staticmethod
-    def check_duplicates(df, column_names=None):
-        if column_names:
-            return df.duplicated(subset=column_names).any()
-        else:
-            return df.duplicated().any()
+    def check_duplicates(df):
+            return not df.duplicated().any()
 
     @staticmethod
     def check_count(df1, df2):
+        if df1 is None or df2 is None:
+            return False
         return len(df1) == len(df2)
 
     @staticmethod
@@ -34,7 +33,11 @@ class DataQualityLibrary:
     def check_not_null_values(df, column_names=None):
         if column_names is None:
             column_names = df.columns.tolist()
+        else:
+            if not all(col in df.columns for col in column_names):
+                return False
         result = {}
         for col in column_names:
             result[col] = df[col].notnull().all()
-        return result
+        # Return True only if all columns have no nulls, otherwise False
+        return all(result.values())

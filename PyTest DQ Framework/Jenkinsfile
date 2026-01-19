@@ -67,11 +67,11 @@ pipeline {
 
         // Publish the HTML report
         publishHTML(target: [
-            allowMissing: false,  // Fail the pipeline if the report is missing
-            keepAll: true,        // Keep all reports from previous runs
-            reportDir: 'PyTest DQ Framework/html_report', // Correct directory path
-            reportFiles: 'index.html',                          // Entry point file
-            reportName: 'HTML Test Report'                      // Display name in Jenkins
+            allowMissing: false,
+            keepAll: true,
+            reportDir: 'PyTest DQ Framework/html_report',
+            reportFiles: 'index.html',
+            reportName: 'HTML Test Report'
         ])
             }
         }
