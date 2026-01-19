@@ -16,24 +16,8 @@ def target_data(db_connection):
 
 @pytest.fixture(scope='module')
 def source_data(parquet_reader):
-    # List all files in the current working directory (before)
-    print("Files in current working directory BEFORE:")
-    for root, dirs, files in os.walk('.'):
-        for name in files:
-            print(os.path.join(root, name))
-
-    source_path = 'parquet_data/facility_name_min_time_spent_per_visit_date'
+    source_path = '/parquet_data/facility_name_min_time_spent_per_visit_date'
     print(f"Trying to load parquet files from: {source_path}")
-
-    # List all files in the target folder (after)
-    if os.path.exists(source_path):
-        print(f"Files in {source_path} AFTER:")
-        for root, dirs, files in os.walk(source_path):
-            for name in files:
-                print(os.path.join(root, name))
-    else:
-        print(f"Path {source_path} does not exist!")
-
     parquet_reader.process(source_path, include_subfolders=True)
     df = parquet_reader.get_dataframe()
     print(f"Loaded DataFrame: {df}")

@@ -13,17 +13,17 @@ class ParquetReader:
     def process(self, file_path, include_subfolders=False):
         try:
             if include_subfolders and os.path.isdir(file_path):
-                # Recursively find all .parquet files
                 parquet_files = glob.glob(os.path.join(file_path, '**', '*.parquet'), recursive=True)
+                print(f"Found parquet files: {parquet_files}")
                 if not parquet_files:
                     raise FileNotFoundError(f"No parquet files found in {file_path} and subfolders.")
-                # Concatenate all found parquet files
                 self.dataframe = pd.concat([pd.read_parquet(f) for f in parquet_files], ignore_index=True)
             else:
                 self.dataframe = pd.read_parquet(file_path)
             print(f"Successfully loaded {file_path}")
         except Exception as e:
             print(f"Error processing Parquet file: {e}")
+        return self.dataframe
 
     def get_dataframe(self):
         """
