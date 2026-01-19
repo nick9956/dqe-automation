@@ -10,7 +10,6 @@ import pytest
 def target_data(db_connection):
     target_query = """
     SELECT * FROM visits
-    WHERE visit_timestamp > '2025-10-01'
     """
     target_data = db_connection.get_data_sql(target_query)
     return target_data
