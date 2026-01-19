@@ -23,6 +23,8 @@ class DataQualityLibrary:
 
     @staticmethod
     def check_data_completeness(source_data, target_data):
+        source_data['visit_date'] = pd.to_datetime(source_data['visit_date'])
+        target_data['visit_date'] = pd.to_datetime(target_data['visit_date'])
         merged = source_data.merge(target_data.drop_duplicates(), how='left', indicator=True)
         return (merged['_merge'] != 'left_only').all()
 

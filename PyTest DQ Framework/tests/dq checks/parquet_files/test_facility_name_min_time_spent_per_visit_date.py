@@ -11,7 +11,7 @@ def target_data(db_connection):
     SELECT
       f.facility_name,
       DATE(v.visit_timestamp) AS visit_date,
-      MIN(v.duration_minutes) AS avg_time_spent
+      MIN(v.duration_minutes) AS min_time_spent
     FROM
       visits AS v
     JOIN
@@ -29,7 +29,6 @@ def source_data(parquet_reader):
     print(f"Trying to load parquet files from: {source_path}")
     parquet_reader.process(source_path, include_subfolders=True)
     df = parquet_reader.get_dataframe()
-    print(f"Loaded DataFrame: {df}")
     return df
 
 @pytest.mark.parquet_data
