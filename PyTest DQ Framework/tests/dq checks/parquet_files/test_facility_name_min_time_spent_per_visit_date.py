@@ -3,13 +3,22 @@ Description: Data Quality checks ...
 Requirement(s): TICKET-1234
 Author(s): Name Surname
 """
-import os
 import pytest
 
 @pytest.fixture(scope='module')
 def target_data(db_connection):
     target_query = """
-    SELECT * FROM visits
+    SELECT
+      f.facility_name,
+      DATE(v.visit_timestamp) AS visit_date,
+      MIN(v.duration_minutes) AS avg_time_spent
+    FROM
+      visits AS v
+    JOIN
+     facilities AS f ON f.id = v.facility_id
+    GROUP BY
+      f.facility_name,
+      visit_date;
     """
     target_data = db_connection.get_data_sql(target_query)
     return target_data
